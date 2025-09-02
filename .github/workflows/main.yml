@@ -3,13 +3,14 @@ name: sample of Sonar Scanner bug
 on: push
 
 jobs:
-  main:
+  old-action-quoted-path:
+    name: 5.3.0 quoted-path
     runs-on: macos-latest
+
     steps:
       - uses: actions/checkout@v5
 
       - uses: SonarSource/sonarqube-scan-action@v5.3.0
-        continue-on-error: true
         with:
           args: >
             -Dsonar.projectVersion=${{ github.sha }}
@@ -25,9 +26,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  new-action-quoted-path:
+    name: 5.3.1 quoted-path
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v5
 
       - uses: SonarSource/sonarqube-scan-action@v5.3.1
-        continue-on-error: true
         with:
           args: >
             -Dsonar.projectVersion=${{ github.sha }}
@@ -44,8 +51,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  old-action-unquoted-path:
+    name: 5.3.0 unquoted-path
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
       - uses: SonarSource/sonarqube-scan-action@v5.3.0
-        continue-on-error: true
         with:
           args: >
             -Dsonar.projectVersion=${{ github.sha }}
@@ -62,8 +75,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - uses: SonarSource/sonarqube-scan-action@v5.3.1
-        continue-on-error: true
+  new-action-unquoted-path:
+    name: 5.3.1 unquoted-path
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: SonarSource/sonarqube-scan-action@v5.3.0
         with:
           args: >
             -Dsonar.projectVersion=${{ github.sha }}
