@@ -146,3 +146,51 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
+old-action-double-quoted:
+    name: 5.3.0 double quoted
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: SonarSource/sonarqube-scan-action@v5.3.0
+        with:
+          args: >
+            -Dsonar.projectVersion=${{ github.sha }}
+            -Dsonar.branch.name=${{ github.ref_name }}
+            -Dsonar.organization=kronenthaler
+            -Dsonar.projectKey=kronenthaler_sonar-scanner-bug
+            -Dsonar.projectName="SonarScanner bug"
+            -Dsonar.sources='"Sources/My Module",Sources/AnotherModule'
+            -Dsonar.verbose=true
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  new-action-double-quoted:
+    name: 5.3.1 double-quoted
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: SonarSource/sonarqube-scan-action@v5.3.1
+        with:
+          args: >
+            -Dsonar.projectVersion=${{ github.sha }}
+            -Dsonar.branch.name=${{ github.ref_name }}
+            -Dsonar.organization=kronenthaler
+            -Dsonar.projectKey=kronenthaler_sonar-scanner-bug
+            -Dsonar.projectName="SonarScanner bug"
+            -Dsonar.sources='"Sources/My Module",Sources/AnotherModule'
+            -Dsonar.verbose=true
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
